@@ -1,0 +1,25 @@
+version: "3.9"
+
+services:
+  copy-db-job:
+    build:
+      context: .
+    command: > 
+      sh -c "sh /app/add_cron_job.sh && 
+             tail -F add_cron_job.sh"
+    volumes:
+      - type: bind
+        source: ./db_transfer.sh
+        target: /app/db_transfer.sh
+      - type: bind
+        source: ./add_cron_job.sh
+        target: /app/add_cron_job.sh
+    environment:
+      - SOURCE_DB=${SOURCE_DB}
+      - SOURCE_PORT=${SOURCE_PORT}
+      - SOURCE_USER=${SOURCE_USER}
+      - SOURCE_PASSWORD=${SOURCE_PASSWORD}
+      - TARGET_DB=${TARGET_DB}
+      - TARGET_PORT=${TARGET_PORT}
+      - TARGET_USER=${TARGET_USER}
+      - TARGET_PASSWORD=${TARGET_PASSWORD}

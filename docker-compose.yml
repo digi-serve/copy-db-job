@@ -15,6 +15,7 @@ services:
         source: ./add_cron_job.sh
         target: /app/add_cron_job.sh
     environment:
+      - LOCAL_DB_HOST=${LOCAL_DB_HOST}
       - SOURCE_DB=${SOURCE_DB}
       - SOURCE_PORT=${SOURCE_PORT}
       - SOURCE_USER=${SOURCE_USER}
